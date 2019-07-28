@@ -2,24 +2,34 @@ import React from 'react';
 import {
   createAppContainer,
   createBottomTabNavigator,
+  createStackNavigator,
+  createSwitchNavigator,
 } from 'react-navigation';
-import { HomeScreen, AuthScreen } from './screens';
+import { Home, Login } from './components';
 
-const AppNavigator = createBottomTabNavigator(
+const AuthStack = createStackNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-    },
     Auth: {
-      screen: AuthScreen,
-    }
+      screen: Login,
+    },
   },
-  { lazy: true, initialRouteName: 'Auth' },
+  { initialRouteName: 'Auth' },
 );
+
+const AppStack = createBottomTabNavigator({
+  Home: {
+    screen: Home,
+  },
+});
+
+const AppNavigator = createSwitchNavigator({
+  Auth: AuthStack,
+  App: AppStack,
+});
 
 const AppContainer = createAppContainer(AppNavigator);
 
-const App: React.SFC<{}> = () => {
+const App: React.FC<{}> = () => {
   return <AppContainer />;
 };
 

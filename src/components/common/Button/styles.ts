@@ -1,11 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../../utils';
 
-export const styles = StyleSheet.create({
+const base = StyleSheet.create({
   container: {
     paddingVertical: 15,
     width: '90%',
-    backgroundColor: colors.secondary,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -13,11 +12,33 @@ export const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
+    fontWeight: 'bold',
+  },
+});
+
+export const styles = StyleSheet.create({
+  primaryContainer: {
+    ...base.container,
+    backgroundColor: colors.primaryLight,
+  },
+  secondaryContainer: {
+    ...base.container,
+    backgroundColor: colors.secondary,
+  },
+  textPrimary: {
+    ...base.text,
+    color: colors.textOnPrimary,
+  },
+  textSecondary: {
+    ...base.text,
     color: colors.textOnSecondary,
   },
-  textLoading: {
-    fontSize: 15,
+  textLoadingPrimary: {
+    ...base.text,
+    color: colors.textOnPrimary,
+  },
+  textLoadingSecondary: {
+    ...base.text,
     color: colors.textOnSecondary,
-    fontWeight: 'bold',
   },
 });

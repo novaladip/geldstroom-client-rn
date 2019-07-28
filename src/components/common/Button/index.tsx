@@ -7,6 +7,7 @@ export interface ButtonProps {
   onPress: Function;
   isLoading?: boolean;
   loadingText?: string;
+  color?: 'primary' | 'secondary';
   containerStyle?: {
     marginTop?: number;
     marginRight?: number;
@@ -18,18 +19,41 @@ export interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = props => {
-  const { text, onPress, isLoading, loadingText, containerStyle } = props;
+  const {
+    text,
+    onPress,
+    color,
+    isLoading,
+    loadingText,
+    containerStyle,
+  } = props;
+
+  const styleContainer =
+    color === 'primary' ? styles.primaryContainer : styles.secondaryContainer;
+
+  const styleLoadingText =
+    color === 'primary'
+      ? styles.textLoadingPrimary
+      : styles.textLoadingSecondary;
+
+  const styleText =
+    color === 'primary' ? styles.textPrimary : styles.textSecondary;
+
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      style={[styles.container, containerStyle]}
+      style={[styleContainer, containerStyle]}
       onPress={() => onPress()}
     >
       {isLoading ? (
-        <Text style={styles.textLoading}>{loadingText}</Text>
+        <Text style={styleLoadingText}>{loadingText}</Text>
       ) : (
-        <Text style={styles.text}>{text}</Text>
+        <Text style={styleText}>{text}</Text>
       )}
     </TouchableOpacity>
   );
+};
+
+Button.defaultProps = {
+  color: 'primary',
 };

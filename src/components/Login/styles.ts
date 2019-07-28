@@ -24,13 +24,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primaryLight,
   },
   text: {
     color: 'white',
   },
   title: {
-    color: colors.textOnSecondary,
+    color: colors.textOnPrimary,
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
