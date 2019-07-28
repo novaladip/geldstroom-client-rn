@@ -36,7 +36,7 @@ export class Login extends React.PureComponent<LoginProps, LoginState> {
   };
 
   onPressLogin = () => {
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Records');
   };
 
   render() {

@@ -4,21 +4,32 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
   createSwitchNavigator,
+  createDrawerNavigator,
 } from 'react-navigation';
-import { Home, Login } from './components';
+import { Home, Records, Setting, Login, Register } from './components';
+import { colors } from './utils';
 
 const AuthStack = createStackNavigator(
   {
-    Auth: {
+    Login: {
       screen: Login,
     },
+    Register: {
+      screen: Register,
+    },
   },
-  { initialRouteName: 'Auth' },
+  { initialRouteName: 'Login' },
 );
 
-const AppStack = createBottomTabNavigator({
+const AppStack = createDrawerNavigator({
   Home: {
     screen: Home,
+  },
+  Records: {
+    screen: Records,
+  },
+  Setting: {
+    screen: Setting,
   },
 });
 
