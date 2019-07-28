@@ -1,14 +1,13 @@
 import React from 'react';
 import { SafeAreaView, Text, View, StatusBar } from 'react-native';
-import {
-  NavigationScreenProps,
-  NavigationScreenOptions,
-} from 'react-navigation';
+
+import { AppRoot } from '../../screen-config/configRoot';
 import { TextInput, Button } from '../common';
 import { styles } from './styles';
 import { colors } from '../../utils';
+import { Options } from 'react-native-navigation';
 
-interface LoginProps extends NavigationScreenProps {}
+interface LoginProps {}
 
 interface LoginState {
   emailInput: string;
@@ -16,11 +15,14 @@ interface LoginState {
 }
 
 export class Login extends React.PureComponent<LoginProps, LoginState> {
-  static navigationOptions: NavigationScreenOptions = {
-    header: null,
-  };
-
   passwordInputRef: any = React.createRef();
+
+  static options: Options = {
+    topBar: {
+      drawBehind: true,
+      visible: false,
+    },
+  };
 
   constructor(props: LoginProps) {
     super(props);
@@ -36,17 +38,13 @@ export class Login extends React.PureComponent<LoginProps, LoginState> {
   };
 
   onPressLogin = () => {
-    this.props.navigation.navigate('Records');
+    AppRoot();
   };
 
   render() {
     const { emailInput, passwordInput } = this.state;
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar
-          backgroundColor={colors.primaryLight}
-          barStyle="light-content"
-        />
         <View style={styles.titleContainer}>
           <Text style={[styles.text, styles.title]}>Geldstroom</Text>
         </View>
