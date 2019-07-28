@@ -3,18 +3,18 @@ import {
   createAppContainer,
   createBottomTabNavigator,
 } from 'react-navigation';
-import { HomeScreen } from './screens';
+import { HomeScreen, AuthScreen } from './screens';
 
 const AppNavigator = createBottomTabNavigator(
   {
     Home: {
       screen: HomeScreen,
     },
-    Settings: {
-      screen: HomeScreen,
-    },
+    Auth: {
+      screen: AuthScreen,
+    }
   },
-  { lazy: true },
+  { lazy: true, initialRouteName: 'Auth' },
 );
 
 const AppContainer = createAppContainer(AppNavigator);
