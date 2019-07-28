@@ -1,9 +1,10 @@
-/**
- * @format
- */
+import { Navigation } from 'react-native-navigation';
+import { registerScreen } from './src/screen-config/registerScreen';
+import { AuthRoot, AppRoot } from './src/screen-config/configRoot';
 
-import { AppRegistry } from 'react-native';
-import App from './src/App';
-import { name as appName } from './app.json';
+registerScreen();
 
-AppRegistry.registerComponent(appName, () => App);
+Navigation.events().registerAppLaunchedListener(() => {
+  AuthRoot();
+  // AppRoot();
+});
