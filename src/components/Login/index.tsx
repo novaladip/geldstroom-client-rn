@@ -1,23 +1,44 @@
 import React, { useRef, useState } from 'react';
 import { SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 
+import { ApplicationState, ConnectedReduxProps } from '../../store/store';
+import { requestLogin } from '../../store/auth/action';
 import { AppRoot } from '../../screen-config/configRoot';
 import { TextInput, Button } from '../common';
 import { styles } from './styles';
 import { Options, Navigation } from 'react-native-navigation';
+import { AuthState } from '../../store/auth/types';
 
-type LoginProps = {
+type PropsFromState = {
+  auth: AuthState;
+};
+
+interface PropsFromDispatch {
+  requestLogin: typeof requestLogin;
+}
+
+type PropsFromComponent = {
   componentId: string;
 };
 
-export function Login(props: LoginProps) {
-  const { componentId } = props;
+type AllProps = PropsFromState &
+  PropsFromDispatch &
+  PropsFromComponent &
+  ConnectedReduxProps;
+
+function Login(props: AllProps) {
+  const { componentId, auth } = props;
   const passwordInputRef = useRef<any>(null);
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
   function onPressLogin() {
-    AppRoot();
+    props.requestLogin({
+      email: emailInput,
+      password: passwordInput,
+      navigateToHome: AppRoot,
+    });
   }
 
   function navigateToRegister() {
@@ -63,7 +84,7 @@ export function Login(props: LoginProps) {
           text="Login"
           loadingText="Loging In..."
           onPress={onPressLogin}
-          isLoading={false}
+          isLoading={auth.isRequestLoginLoading}
           containerStyle={{ marginTop: 35 }}
         />
       </View>
@@ -77,3 +98,16 @@ Login.options = {
     visible: false,
   },
 } as Options;
+
+const mapStateToProps = (state: ApplicationState) => ({
+  auth: state.auth,
+});
+
+const mapDispacthToProps = {
+  requestLogin,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispacthToProps,
+)(Login);
