@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     width: '90%',
   },
   input: {
-    color: 'white',
+    color: colors.textOnPrimary,
     borderBottomWidth: 1,
     marginBottom: 3,
     borderColor: colors.primaryLight,

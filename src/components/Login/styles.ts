@@ -13,6 +13,14 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
+  registerContainer: {
+    paddingVertical: 10,
+    width: '100%',
+    paddingHorizontal: 20,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
   titleContainer: {
     marginTop: 25,
     padding: 20,
@@ -22,12 +30,15 @@ export const styles = StyleSheet.create({
     borderBottomRightRadius: 30,
     width: '90%',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     alignSelf: 'center',
     backgroundColor: colors.primaryLight,
   },
   text: {
-    color: 'white',
+    color: colors.textOnPrimary,
+  },
+  textBold: {
+    fontWeight: 'bold',
   },
   title: {
     color: colors.textOnPrimary,

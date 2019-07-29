@@ -6,6 +6,7 @@ import {
   TextInputProps as InputProps,
 } from 'react-native';
 import { styles } from './styles';
+import { colors } from '../../../utils';
 
 export interface TextInputProps extends InputProps {
   label: string;
@@ -29,7 +30,7 @@ export class TextInput extends PureComponent<TextInputProps> {
         <Input
           placeholder={placeholder}
           style={error ? styles.inputError : styles.input}
-          placeholderTextColor="grey"
+          placeholderTextColor={colors.primaryLight}
           ref={e => (this.inputRefs = e)}
           {...this.props}
         />

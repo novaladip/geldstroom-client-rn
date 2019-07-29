@@ -1,13 +1,14 @@
 import React from 'react';
-import { SafeAreaView, Text, View, StatusBar } from 'react-native';
+import { SafeAreaView, Text, View, TouchableOpacity } from 'react-native';
 
 import { AppRoot } from '../../screen-config/configRoot';
 import { TextInput, Button } from '../common';
 import { styles } from './styles';
-import { colors } from '../../utils';
-import { Options } from 'react-native-navigation';
+import { Options, Navigation } from 'react-native-navigation';
 
-interface LoginProps {}
+interface LoginProps {
+  componentId: string;
+}
 
 interface LoginState {
   emailInput: string;
@@ -41,12 +42,20 @@ export class Login extends React.PureComponent<LoginProps, LoginState> {
     AppRoot();
   };
 
+  navigateToRegister = () =>
+    Navigation.push(this.props.componentId, {
+      component: { name: 'Register' },
+    });
+
   render() {
     const { emailInput, passwordInput } = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text style={[styles.text, styles.title]}>Geldstroom</Text>
+          <Text style={[styles.text, styles.title]}>
+            "Do not worry if you have built your castles in the air. They are
+            where they should be. Now put the foundations under them."
+          </Text>
         </View>
         <View style={styles.inputContainer}>
           <TextInput
@@ -66,7 +75,14 @@ export class Login extends React.PureComponent<LoginProps, LoginState> {
             onChangeText={v => this.handleOnChange('passwordInput', v)}
             ref={this.passwordInputRef}
           />
+          <View style={styles.registerContainer}>
+            <Text style={styles.text}>Doesn't have an account? </Text>
+            <TouchableOpacity onPress={this.navigateToRegister}>
+              <Text style={[styles.text, styles.textBold]}>Register Here</Text>
+            </TouchableOpacity>
+          </View>
           <Button
+            color="primary"
             text="Login"
             loadingText="Loging In..."
             onPress={this.onPressLogin}
