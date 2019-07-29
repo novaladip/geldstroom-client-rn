@@ -41,6 +41,7 @@ export const Button: React.FC<ButtonProps> = props => {
 
   return (
     <TouchableOpacity
+      disabled={isLoading}
       activeOpacity={0.7}
       style={[styleContainer, containerStyle]}
       onPress={() => onPress()}
