@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { SafeAreaView, Text } from 'react-native';
 import { colors } from '../../utils';
 
-export const Home: React.FC<{}> = () => {
+export const Home = () => {
   return (
     <Fragment>
       <SafeAreaView
