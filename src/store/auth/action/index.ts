@@ -14,7 +14,8 @@ export type LoginSuccessPayload = {
 export type RegisterPayload = {
   email: string;
   password: string;
-  popScreen: () => void;
+  passwordComfirmation: string;
+  popScreen: any;
 };
 
 export function requestLogin(loginPayload: LoginPayload) {
@@ -38,5 +39,5 @@ export function requestRegisterSuccess() {
 }
 
 export function requestRegisterFailure(error: any) {
-  return action(AuthActionTypes.REQUEST_LOGIN_FAILURE, error);
+  return action(AuthActionTypes.REQUEST_REGISTER_FAILURE, error);
 }

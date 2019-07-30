@@ -21,7 +21,7 @@ export async function login(userData: Credentials) {
 
 export async function register(userData: Credentials) {
   try {
-    const res = await api.get('/auth/register', { data: userData });
+    const res = await api.post('/auth/register', userData);
     const data = await res.data;
     return data;
   } catch (error) {

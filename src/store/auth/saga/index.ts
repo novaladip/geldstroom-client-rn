@@ -6,17 +6,21 @@ import {
   requestLoginSuccess,
   requestLoginFailure,
   requestLogin,
+  requestRegister,
+  requestRegisterFailure,
+  requestRegisterSuccess,
 } from '../action';
-import { login, LoginResponse } from '../service';
-import { validateAuthInput } from '../helper';
+import { login, LoginResponse, register } from '../service';
+import { validateAuthInput, validateRegisterInput } from '../helper';
 
-export function* requstLogin(action: ReturnType<typeof requestLogin>) {
+export function* handleRequestLogin(action: ReturnType<typeof requestLogin>) {
   try {
     const { email, password } = action.payload;
     const { isValid, error } = yield call(validateAuthInput, {
       email,
       password,
     });
+
     if (!isValid) {
       return yield put(requestLoginFailure(error));
     }
@@ -34,10 +38,35 @@ export function* requstLogin(action: ReturnType<typeof requestLogin>) {
   }
 }
 
+export function* handleRequestRegister(
+  action: ReturnType<typeof requestRegister>,
+) {
+  try {
+    const { email, password, passwordComfirmation, popScreen } = action.payload;
+    const { isValid, error } = yield call(validateRegisterInput, {
+      email,
+      password,
+      passwordComfirmation,
+    });
+    if (!isValid) {
+      return yield put(requestRegisterFailure(error));
+    }
+    yield call(register, { email, password });
+    yield put(requestRegisterSuccess());
+    yield call(popScreen);
+  } catch (error) {
+    yield put(requestRegisterFailure(error));
+  }
+}
+
 export function* watchRequestLogin() {
-  yield takeLatest(AuthActionTypes.REQUEST_LOGIN, requstLogin);
+  yield takeLatest(AuthActionTypes.REQUEST_LOGIN, handleRequestLogin);
+}
+
+export function* watchRequestRegister() {
+  yield takeLatest(AuthActionTypes.REQUEST_REGISTER, handleRequestRegister);
 }
 
 export function* rootAuthSaga() {
-  yield all([fork(watchRequestLogin)]);
+  yield all([fork(watchRequestLogin), fork(watchRequestRegister)]);
 }
