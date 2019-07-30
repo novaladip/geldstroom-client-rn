@@ -1,12 +1,13 @@
 import { all, call, fork, takeLatest, put } from 'redux-saga/effects';
-import { AuthActionTypes, User } from '../types';
+
+import { AuthActionTypes } from '../types';
+import { decodeJwt, saveJwtToken, setDefaultAuthHeader } from '../../../utils';
 import {
   requestLoginSuccess,
   requestLoginFailure,
   requestLogin,
 } from '../action';
 import { login, LoginResponse } from '../service';
-import jwtDecode from 'jwt-decode';
 
 export function* requstLogin(action: ReturnType<typeof requestLogin>) {
   try {
@@ -14,10 +15,11 @@ export function* requstLogin(action: ReturnType<typeof requestLogin>) {
       email: action.payload.email,
       password: action.payload.password,
     });
-    // TODO SAVE ACCESS TOKEN TO ASYNC STORAGE
-    const decoded = jwtDecode<User>(res.accessToken);
+    yield call(saveJwtToken, res.accessToken);
+    yield call(setDefaultAuthHeader, res.accessToken);
+    const decoded = decodeJwt(res.accessToken);
     yield put(requestLoginSuccess({ user: decoded }));
-    action.payload.navigateToHome();
+    yield call(action.payload.navigateToHome);
   } catch (e) {
     yield put(requestLoginFailure(e));
   }
