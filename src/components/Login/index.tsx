@@ -64,6 +64,7 @@ function Login(props: AllProps) {
           onSubmitEditing={() => passwordInputRef.current.focus()}
           blurOnSubmit={false}
           returnKeyType="next"
+          error={auth.loginError.email}
         />
         <TextInput
           value={passwordInput}
@@ -72,6 +73,8 @@ function Login(props: AllProps) {
           secureTextEntry={true}
           onChangeText={setPasswordInput}
           ref={passwordInputRef}
+          error={auth.loginError.password || auth.loginError.message}
+          onSubmitEditing={onPressLogin}
         />
         <View style={styles.registerContainer}>
           <Text style={styles.text}>Doesn't have an account? </Text>

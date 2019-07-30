@@ -8,9 +8,18 @@ import {
   requestLogin,
 } from '../action';
 import { login, LoginResponse } from '../service';
+import { validateAuthInput } from '../helper';
 
 export function* requstLogin(action: ReturnType<typeof requestLogin>) {
   try {
+    const { email, password } = action.payload;
+    const { isValid, error } = yield call(validateAuthInput, {
+      email,
+      password,
+    });
+    if (!isValid) {
+      return yield put(requestLoginFailure(error));
+    }
     const res: LoginResponse = yield call(login, {
       email: action.payload.email,
       password: action.payload.password,
