@@ -65,6 +65,8 @@ function Login(props: AllProps) {
           blurOnSubmit={false}
           returnKeyType="next"
           error={auth.loginError.email}
+          useIcon
+          iconName="email"
         />
         <TextInput
           value={passwordInput}
@@ -75,6 +77,8 @@ function Login(props: AllProps) {
           ref={passwordInputRef}
           error={auth.loginError.password || auth.loginError.message}
           onSubmitEditing={onPressLogin}
+          useIcon
+          iconName="password"
         />
         <View style={styles.registerContainer}>
           <Text style={styles.text}>Doesn't have an account? </Text>

@@ -7,6 +7,16 @@ export const styles = StyleSheet.create({
     paddingTop: 15,
     width: '90%',
   },
+  iconContainer: {
+    position: 'absolute',
+    top: 50,
+    right: 0,
+  },
+  icon: {
+    width: 28,
+    height: 18,
+    tintColor: colors.textOnPrimary,
+  },
   input: {
     color: colors.textOnPrimary,
     borderBottomWidth: 1,
