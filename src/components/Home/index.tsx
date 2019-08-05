@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native';
 import moment from 'moment';
 import { DateObject } from 'react-native-calendars';
@@ -6,10 +6,29 @@ import { DateObject } from 'react-native-calendars';
 import { SelectedDate, Calendar } from '../common/Calendar';
 import { colors } from '../../utils';
 import { Options } from 'react-native-navigation';
+import { ApplicationState } from '../../store/store';
+import { requestGetTransactions } from '../../store/transaction/action';
+import { connect } from 'react-redux';
+import { TransactionState } from '../../store/transaction/types';
 
-const today = moment().format('YYYY-MM-DD');
+export interface Props {
+  componentId: string;
+}
 
-export const Home = () => {
+export interface StateFromProps {
+  transaction: TransactionState;
+}
+
+export interface StateFromDispatch {
+  requestGetTransactions: typeof requestGetTransactions;
+}
+
+export type AllProps = Props & StateFromProps & StateFromDispatch;
+
+function Home(props: AllProps) {
+  const { requestGetTransactions } = props;
+  const today = moment.utc().format('YYYY-MM-DD');
+  const [selectedDateString, setSelectedDateString] = useState(today);
   const [selectedDate, setSelectedDate] = useState<SelectedDate>({
     [today]: { selected: true, marked: true },
   });
@@ -18,8 +37,13 @@ export const Home = () => {
     const formattedData = {
       [data.dateString]: { selected: true, marked: true },
     };
+    setSelectedDateString(data.dateString);
     setSelectedDate(formattedData);
   }
+
+  useEffect(() => {
+    requestGetTransactions({ date: selectedDateString, page: 1, limit: 5 });
+  }, [selectedDateString]);
 
   return (
     <Fragment>
@@ -33,7 +57,7 @@ export const Home = () => {
       </SafeAreaView>
     </Fragment>
   );
-};
+}
 
 Home.options = {
   topBar: {
@@ -41,3 +65,16 @@ Home.options = {
     drawBehind: true,
   },
 } as Options;
+
+const mapStateToProps = (state: ApplicationState) => ({
+  transaction: state.transaction,
+});
+
+const mapDispatchToProps = {
+  requestGetTransactions,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Home);

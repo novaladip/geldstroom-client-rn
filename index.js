@@ -26,6 +26,6 @@ Navigation.events().registerAppLaunchedListener(async () => {
     return AuthRoot();
   }
 
-  setDefaultAuthHeader();
+  setDefaultAuthHeader(token);
   AppRoot();
 });

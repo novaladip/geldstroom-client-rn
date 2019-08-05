@@ -15,7 +15,7 @@ export interface Props {
   onChangeChange: (dateObject: DateObject) => any;
 }
 
-const today = moment().format('YYYY-MM-DD');
+const today = moment.utc().format('YYYY-MM-DD');
 
 export function Calendar(props: Props) {
   const { selectedDate, onChangeChange } = props;
