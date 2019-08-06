@@ -30,16 +30,13 @@ function Home(props: AllProps) {
   const today = moment.utc().format('YYYY-MM-DD');
 
   useEffect(() => {
-    requestGetTransactions({ date: today, page: 1, limit: 6 });
+    requestGetTransactions({ date: today, page: 1, limit: 9 });
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <Balance income={500000} expense={120000} />
-      <OverviewRecords
-        transactions={transaction.transaction}
-        selectedDate={today}
-      />
+      <OverviewRecords transactions={transaction.transaction} />
     </SafeAreaView>
   );
 }

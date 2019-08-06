@@ -7,15 +7,14 @@ import { styles } from './styles';
 
 interface Props {
   transactions: Transaction[];
-  selectedDate: string;
 }
 
 export function OverviewRecords(props: Props) {
-  const { transactions, selectedDate } = props;
+  const { transactions } = props;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>{selectedDate} records overview</Text>
+        <Text style={styles.title}>Today records overview</Text>
         <TouchableOpacity>
           <Text style={styles.textButton}>Show More</Text>
         </TouchableOpacity>

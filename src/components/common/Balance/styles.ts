@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     paddingVertical: 20,
     paddingHorizontal: 10,
-    backgroundColor: colors.secondaryDark,
+    backgroundColor: colors.primary,
   },
   row: {
     flexDirection: 'row',
@@ -36,5 +36,11 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.textOnPrimary,
     fontWeight: 'bold',
+  },
+  textIncome: {
+    color: colors.income,
+  },
+  textExpense: {
+    color: colors.expense,
   },
 });

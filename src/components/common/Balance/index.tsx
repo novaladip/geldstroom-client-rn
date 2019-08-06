@@ -17,10 +17,14 @@ export function Balance(props: Props) {
       </View>
       <View style={styles.row}>
         <View style={[styles.balance, styles.expense]}>
-          <Text style={styles.text}>+ IDR{formatIDR(expense)}</Text>
+          <Text style={[styles.text, styles.textExpense]}>
+            - IDR{formatIDR(expense)}
+          </Text>
         </View>
         <View style={[styles.balance, styles.income]}>
-          <Text style={styles.text}>- IDR{formatIDR(income)}</Text>
+          <Text style={[styles.text, styles.textIncome]}>
+            + IDR{formatIDR(income)}
+          </Text>
         </View>
       </View>
     </View>

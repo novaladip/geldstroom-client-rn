@@ -56,7 +56,7 @@ export function AppRoot() {
   Navigation.setDefaultOptions({
     topBar: {
       background: {
-        color: colors.primaryLight,
+        color: colors.primary,
         translucent: true,
       },
       title: {
@@ -109,7 +109,7 @@ export function createLayoutBottomTabsChildren(
           selectedTextColor: colors.secondary,
         },
         bottomTabs: {
-          backgroundColor: colors.primaryLight,
+          backgroundColor: colors.primary,
         },
       },
     },
