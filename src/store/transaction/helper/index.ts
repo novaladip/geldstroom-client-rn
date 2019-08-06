@@ -1,4 +1,5 @@
 import moment from 'moment';
+export * from './validate-add-transaction';
 
 /**
  * @param date string

@@ -7,6 +7,10 @@ const initialState: TransactionState = {
   isEmpty: false,
   isLoading: false,
   error: {},
+  addTransaction: {
+    error: {},
+    isLoading: false,
+  },
 };
 
 export function transactionReducer(
@@ -40,6 +44,33 @@ export function transactionReducer(
         isEmpty: false,
       };
 
+    case TransactionActionTypes.ADD_TRANSACTION:
+      return {
+        ...state,
+        addTransaction: {
+          error: {},
+          isLoading: true,
+        },
+      };
+
+    case TransactionActionTypes.ADD_TRANSACTION_SUCCESS:
+      return {
+        ...state,
+        transaction: [action.payload, ...state.transaction],
+        addTransaction: {
+          error: {},
+          isLoading: false,
+        },
+      };
+
+    case TransactionActionTypes.ADD_TRANSACTION_ERROR:
+      return {
+        ...state,
+        addTransaction: {
+          error: action.payload,
+          isLoading: false,
+        },
+      };
     default:
       return state;
   }

@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { OverviewRecords } from './OverviewRecords';
 import { Options } from 'react-native-navigation';
-import { ApplicationState } from '../../store/store';
+import { ApplicationState, ConnectedReduxProps } from '../../store/store';
 import { requestGetTransactions } from '../../store/transaction/action';
 import { connect } from 'react-redux';
 import { TransactionState } from '../../store/transaction/types';
@@ -23,7 +23,10 @@ export interface StateFromDispatch {
   requestGetTransactions: typeof requestGetTransactions;
 }
 
-export type AllProps = Props & StateFromProps & StateFromDispatch;
+export type AllProps = Props &
+  StateFromProps &
+  StateFromDispatch &
+  ConnectedReduxProps;
 
 function Home(props: AllProps) {
   const { componentId, requestGetTransactions, transaction } = props;

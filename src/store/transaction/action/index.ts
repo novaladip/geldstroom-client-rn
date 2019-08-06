@@ -3,6 +3,8 @@ import {
   TransactionActionTypes,
   GetTransactionsOption,
   GetTransactionSuccessPayload,
+  AddTransactionPayload,
+  AddTransactionSuccessPayload,
 } from '../types';
 
 export function requestGetTransactions(options: GetTransactionsOption) {
@@ -20,4 +22,16 @@ export function requestGetTransactionsSuccess(
 
 export function requestGetTransactionsFailure(error: any) {
   return action(TransactionActionTypes.REQUEST_GET_TRANSACTIONSFAILURE, error);
+}
+
+export function addTransaction(payload: AddTransactionPayload) {
+  return action(TransactionActionTypes.ADD_TRANSACTION, payload);
+}
+
+export function addTransactionSuccess(payload: AddTransactionSuccessPayload) {
+  return action(TransactionActionTypes.ADD_TRANSACTION_SUCCESS, payload);
+}
+
+export function addTransactionFailure(payload: { error: any }) {
+  return action(TransactionActionTypes.ADD_TRANSACTION_ERROR, payload);
 }
