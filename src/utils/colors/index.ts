@@ -7,4 +7,6 @@ export const colors = {
   secondaryDark: '#8858c8',
   textOnPrimary: '#ffffff',
   textOnSecondary: '#000000',
+  income: '#00ff00',
+  expense: '#ff0000',
 };

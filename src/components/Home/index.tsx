@@ -3,13 +3,13 @@ import { SafeAreaView } from 'react-native';
 import moment from 'moment';
 
 import { OverviewRecords } from './OverviewRecords';
-import { colors } from '../../utils';
 import { Options } from 'react-native-navigation';
 import { ApplicationState } from '../../store/store';
 import { requestGetTransactions } from '../../store/transaction/action';
 import { connect } from 'react-redux';
 import { TransactionState } from '../../store/transaction/types';
 import { styles } from './styles';
+import { Balance } from '../common';
 
 export interface Props {
   componentId: string;
@@ -35,6 +35,7 @@ function Home(props: AllProps) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Balance income={500000} expense={120000} />
       <OverviewRecords
         transactions={transaction.transaction}
         selectedDate={today}

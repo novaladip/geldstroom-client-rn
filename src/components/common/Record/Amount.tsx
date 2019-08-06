@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { TransactionType } from '../../../store/transaction/types';
-import { number } from 'prop-types';
+import { formatIDR, colors } from '../../../utils';
 
 interface Props {
   amount: number;
@@ -14,10 +14,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   income: {
-    color: '#00ff00',
+    color: colors.income,
   },
   expense: {
-    color: '#ff0000',
+    color: colors.expense,
   },
 });
 
@@ -27,10 +27,6 @@ export function Amount(props: Props) {
   function formatAmount(amount: number, type: TransactionType): string {
     if (type === TransactionType.INCOME) return `+ IDR${formatIDR(amount)}`;
     return `- IDR${formatIDR(amount)}`;
-  }
-
-  function formatIDR(amount: number): string {
-    return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
   }
 
   return (
