@@ -9,7 +9,7 @@ import { requestGetTransactions } from '../../store/transaction/action';
 import { connect } from 'react-redux';
 import { TransactionState } from '../../store/transaction/types';
 import { styles } from './styles';
-import { Balance } from '../common';
+import { Balance, FloatingActionButton } from '../common';
 
 export interface Props {
   componentId: string;
@@ -26,7 +26,7 @@ export interface StateFromDispatch {
 export type AllProps = Props & StateFromProps & StateFromDispatch;
 
 function Home(props: AllProps) {
-  const { requestGetTransactions, transaction } = props;
+  const { componentId, requestGetTransactions, transaction } = props;
   const today = moment.utc().format('YYYY-MM-DD');
 
   useEffect(() => {
@@ -35,6 +35,7 @@ function Home(props: AllProps) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <FloatingActionButton componentId={componentId} />
       <Balance income={500000} expense={120000} />
       <OverviewRecords transactions={transaction.transaction} />
     </SafeAreaView>
