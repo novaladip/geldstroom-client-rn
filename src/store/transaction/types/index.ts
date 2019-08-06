@@ -19,10 +19,9 @@ export interface Transaction {
   amount: number;
   category: TransactionCategory;
   type: TransactionType;
-  title: string;
-  description?: string;
+  description: string | null;
   createdAt: string;
-  updatedAt?: string;
+  updatedAt: string | null;
   userId: string;
 }
 

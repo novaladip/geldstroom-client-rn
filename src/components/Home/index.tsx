@@ -1,15 +1,15 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native';
 import moment from 'moment';
-import { DateObject } from 'react-native-calendars';
 
-import { SelectedDate, Calendar } from '../common/Calendar';
+import { OverviewRecords } from './OverviewRecords';
 import { colors } from '../../utils';
 import { Options } from 'react-native-navigation';
 import { ApplicationState } from '../../store/store';
 import { requestGetTransactions } from '../../store/transaction/action';
 import { connect } from 'react-redux';
 import { TransactionState } from '../../store/transaction/types';
+import { styles } from './styles';
 
 export interface Props {
   componentId: string;
@@ -26,36 +26,20 @@ export interface StateFromDispatch {
 export type AllProps = Props & StateFromProps & StateFromDispatch;
 
 function Home(props: AllProps) {
-  const { requestGetTransactions } = props;
+  const { requestGetTransactions, transaction } = props;
   const today = moment.utc().format('YYYY-MM-DD');
-  const [selectedDateString, setSelectedDateString] = useState(today);
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>({
-    [today]: { selected: true, marked: true },
-  });
-
-  function onChangeDate(data: DateObject) {
-    const formattedData = {
-      [data.dateString]: { selected: true, marked: true },
-    };
-    setSelectedDateString(data.dateString);
-    setSelectedDate(formattedData);
-  }
 
   useEffect(() => {
-    requestGetTransactions({ date: selectedDateString, page: 1, limit: 5 });
-  }, [selectedDateString]);
+    requestGetTransactions({ date: today, page: 1, limit: 6 });
+  }, []);
 
   return (
-    <Fragment>
-      <SafeAreaView
-        style={{
-          flex: 1,
-          backgroundColor: colors.primary,
-        }}
-      >
-        <Calendar selectedDate={selectedDate} onChangeChange={onChangeDate} />
-      </SafeAreaView>
-    </Fragment>
+    <SafeAreaView style={styles.container}>
+      <OverviewRecords
+        transactions={transaction.transaction}
+        selectedDate={today}
+      />
+    </SafeAreaView>
   );
 }
 
