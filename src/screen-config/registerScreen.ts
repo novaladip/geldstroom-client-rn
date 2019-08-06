@@ -1,7 +1,14 @@
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 
-import { Login, Register, Home, Records, Setting } from '../components';
+import {
+  Login,
+  Register,
+  Home,
+  Records,
+  Setting,
+  AddRecord,
+} from '../components';
 import { store } from '../store/store';
 
 const screens: { name: string; component: any }[] = [
@@ -10,6 +17,7 @@ const screens: { name: string; component: any }[] = [
   { name: 'Home', component: Home },
   { name: 'Records', component: Records },
   { name: 'Setting', component: Setting },
+  { name: 'AddRecord', component: AddRecord },
 ];
 
 export function registerScreen() {
