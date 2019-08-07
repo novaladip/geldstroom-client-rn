@@ -1,16 +1,17 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
+import { View, TouchableOpacity, Text, FlatList } from 'react-native';
 
 import { Transaction } from '../../../store/transaction/types';
-import { Record } from '../../common';
+import { Record, RecordPlaceholder } from '../../common';
 import { styles } from './styles';
 
 interface Props {
   transactions: Transaction[];
+  isLoading: boolean;
 }
 
 export function OverviewRecords(props: Props) {
-  const { transactions } = props;
+  const { transactions, isLoading } = props;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -19,11 +20,12 @@ export function OverviewRecords(props: Props) {
           <Text style={styles.textButton}>Show More</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {transactions.map(transaction => (
-          <Record transaction={transaction} key={transaction.id} />
-        ))}
-      </ScrollView>
+      <RecordPlaceholder isVisible={isLoading} length={10} />
+      <FlatList
+        keyExtractor={({ id }) => id}
+        data={transactions}
+        renderItem={({ item }) => <Record transaction={item} />}
+      />
     </View>
   );
 }

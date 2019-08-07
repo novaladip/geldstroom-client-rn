@@ -58,7 +58,10 @@ function Home(props: AllProps) {
     <SafeAreaView style={styles.container}>
       <FloatingActionButton componentId={componentId} />
       <Balance balance={balance} />
-      <OverviewRecords transactions={transaction.transaction} />
+      <OverviewRecords
+        transactions={transaction.transaction}
+        isLoading={transaction.isLoading}
+      />
       <FlashMessage position="top" ref={flashMessageRef} />
     </SafeAreaView>
   );
