@@ -2,14 +2,14 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { styles } from './styles';
 import { formatIDR } from '../../../utils';
+import { BalanceState } from '../../../store/transaction/types';
 
 interface Props {
-  income: number;
-  expense: number;
+  balance: BalanceState;
 }
 
 export function Balance(props: Props) {
-  const { income, expense } = props;
+  const { income, expense } = props.balance;
   return (
     <View style={styles.container}>
       <View style={[styles.balance, styles.total]}>

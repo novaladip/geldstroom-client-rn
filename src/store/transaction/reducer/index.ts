@@ -95,8 +95,8 @@ export function transactionReducer(
           ...state.balance,
           isLoading: false,
           error: {},
-          income: action.payload.income,
-          expense: action.payload.expense,
+          income: action.payload.INCOME,
+          expense: action.payload.EXPENSE,
         },
       };
 
