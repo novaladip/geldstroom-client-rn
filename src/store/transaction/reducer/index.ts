@@ -4,6 +4,7 @@ import {
   TransactionType,
 } from '../types';
 import { isEmpty } from '../../../utils';
+import { AuthActionTypes } from '../../auth/types';
 
 const initialState: TransactionState = {
   transaction: [],
@@ -126,6 +127,9 @@ export function transactionReducer(
           error: action.payload,
         },
       };
+
+    case AuthActionTypes.LOGOUT_USER:
+      return initialState;
 
     default:
       return state;

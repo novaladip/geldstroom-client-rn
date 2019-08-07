@@ -1,7 +1,12 @@
 import { all, call, fork, takeLatest, put } from 'redux-saga/effects';
 
 import { AuthActionTypes } from '../types';
-import { decodeJwt, saveJwtToken, setDefaultAuthHeader } from '../../../utils';
+import {
+  decodeJwt,
+  saveJwtToken,
+  setDefaultAuthHeader,
+  deleteJwtToken,
+} from '../../../utils';
 import {
   requestLoginSuccess,
   requestLoginFailure,
@@ -59,6 +64,14 @@ export function* handleRequestRegister(
   }
 }
 
+export function* handleLogoutUser() {
+  yield call(deleteJwtToken);
+}
+
+export function* watchLogoutUser() {
+  yield takeLatest(AuthActionTypes.LOGOUT_USER, handleLogoutUser);
+}
+
 export function* watchRequestLogin() {
   yield takeLatest(AuthActionTypes.REQUEST_LOGIN, handleRequestLogin);
 }
@@ -68,5 +81,9 @@ export function* watchRequestRegister() {
 }
 
 export function* rootAuthSaga() {
-  yield all([fork(watchRequestLogin), fork(watchRequestRegister)]);
+  yield all([
+    fork(watchRequestLogin),
+    fork(watchRequestRegister),
+    fork(watchLogoutUser),
+  ]);
 }

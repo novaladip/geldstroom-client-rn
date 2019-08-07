@@ -55,6 +55,9 @@ export function authReducer(state = initialState, action: any): AuthState {
         registerError: action.payload,
       };
 
+    case AuthActionTypes.LOGOUT_USER:
+      return initialState;
+
     default:
       return state;
   }

@@ -41,3 +41,7 @@ export function requestRegisterSuccess() {
 export function requestRegisterFailure(error: any) {
   return action(AuthActionTypes.REQUEST_REGISTER_FAILURE, error);
 }
+
+export function logoutCurrentUser() {
+  return action(AuthActionTypes.LOGOUT_USER);
+}
