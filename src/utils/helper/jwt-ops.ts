@@ -5,8 +5,8 @@ import { api } from '../api';
 
 const jwtKey = 'jwt';
 
-export function setDefaultAuthHeader(jwtToken: string): void {
-  api.defaults['headers']['Authorization'] = jwtToken;
+export async function setDefaultAuthHeader(jwtToken: string): Promise<void> {
+  api.defaults.headers.common['Authorization'] = await jwtToken;
 }
 
 export async function saveJwtToken(data: string): Promise<void> {

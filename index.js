@@ -7,8 +7,10 @@ import {
   isTokenExpired,
   setDefaultAuthHeader,
 } from './src/utils';
+import { requestLoginSuccess } from './src/store/auth/action';
 import { registerScreen } from './src/screen-config/registerScreen';
 import { AuthRoot, AppRoot } from './src/screen-config/configRoot';
+import { store } from './src/store/store';
 
 registerScreen();
 
@@ -26,6 +28,7 @@ Navigation.events().registerAppLaunchedListener(async () => {
     return AuthRoot();
   }
 
-  setDefaultAuthHeader(token);
+  await setDefaultAuthHeader(token);
+  store.dispatch(requestLoginSuccess({ user: decoded }));
   AppRoot();
 });

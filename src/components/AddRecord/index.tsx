@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Options } from 'react-native-navigation';
 import { connect } from 'react-redux';
 import FlashMessage from 'react-native-flash-message';
@@ -13,6 +14,7 @@ import {
 } from '../../store/transaction/types';
 import { addTransaction } from '../../store/transaction/action';
 import { ConnectedReduxProps, ApplicationState } from '../../store/store';
+import { isEmpty } from '../../utils';
 
 interface Props {
   componentId: string;
@@ -32,9 +34,10 @@ type AllProps = Props &
   ConnectedReduxProps;
 
 function AddRecords(props: AllProps) {
+  const flashMessageRef = useRef<any>();
+  const descriptionRef = useRef<any>();
   const { addTransactionAction, addTransaction } = props;
   const { error, isLoading } = addTransaction;
-  const flashMessageRef = useRef<any>();
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('EXPENSE');
@@ -54,40 +57,48 @@ function AddRecords(props: AllProps) {
 
   return (
     <View style={styles.container}>
-      <OptionsInput
-        label="Type"
-        value={type}
-        onSelect={setType}
-        options={[TransactionType.INCOME, TransactionType.EXPENSE]}
-      />
-      <OptionsInput
-        label="Category"
-        value={category}
-        onSelect={setCategory}
-        options={Object.keys(TransactionCategory).map(category => category)}
-      />
-      <TextInput
-        label="Amount"
-        placeholder="e.g 20000"
-        value={amount}
-        keyboardType="numeric"
-        onChangeText={setAmount}
-        error={error.amount}
-      />
-      <TextInput
-        label="Description"
-        placeholder="Enter description"
-        value={description}
-        onChangeText={setDescription}
-        error={error.description}
-      />
-      <Button
-        onPress={onPress}
-        text="Add Transaction"
-        containerStyle={{ marginTop: 30 }}
-        isLoading={isLoading}
-        loadingText="Adding Transaction..."
-      />
+      <KeyboardAwareScrollView>
+        <OptionsInput
+          label="Type"
+          value={type}
+          onSelect={setType}
+          options={[TransactionType.INCOME, TransactionType.EXPENSE]}
+        />
+        <OptionsInput
+          label="Category"
+          value={category}
+          onSelect={setCategory}
+          options={Object.keys(TransactionCategory).map(category => category)}
+        />
+        <TextInput
+          label="Amount"
+          placeholder="e.g 20000"
+          value={amount}
+          keyboardType="numeric"
+          onChangeText={setAmount}
+          error={error.amount}
+          onSubmitEditing={() => descriptionRef.current.focus()}
+          blurOnSubmit={false}
+        />
+        <TextInput
+          label="Description"
+          placeholder="Enter description"
+          value={description}
+          onChangeText={setDescription}
+          error={error.description}
+          ref={descriptionRef}
+          onSubmitEditing={() => {
+            if (!isEmpty(amount)) onPress();
+          }}
+        />
+        <Button
+          onPress={onPress}
+          text="Add Transaction"
+          containerStyle={{ marginTop: 30 }}
+          isLoading={isLoading}
+          loadingText="Adding Transaction..."
+        />
+      </KeyboardAwareScrollView>
       <FlashMessage position="bottom" ref={flashMessageRef} />
     </View>
   );
