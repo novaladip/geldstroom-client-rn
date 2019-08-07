@@ -19,6 +19,7 @@ export const SettingLayout = createLayoutBottomTabsChildren({
 
 export function AuthRoot() {
   Navigation.setDefaultOptions({
+    blurOnUnmount: true,
     topBar: {
       background: {
         color: colors.primaryLight,
@@ -56,7 +57,7 @@ export function AppRoot() {
   Navigation.setDefaultOptions({
     topBar: {
       background: {
-        color: colors.primary,
+        color: colors.secondaryDark,
         translucent: true,
       },
       title: {
@@ -103,13 +104,13 @@ export function createLayoutBottomTabsChildren(
         bottomTab: {
           text: options.tabLabel,
           icon: options.iconPath,
-          iconColor: colors.textOnPrimary,
-          textColor: colors.textOnPrimary,
-          selectedIconColor: colors.secondary,
-          selectedTextColor: colors.secondary,
+          iconColor: colors.primaryLight,
+          textColor: colors.primaryLight,
+          selectedIconColor: colors.textOnPrimary,
+          selectedTextColor: colors.textOnPrimary,
         },
         bottomTabs: {
-          backgroundColor: colors.primary,
+          backgroundColor: colors.secondaryDark,
         },
       },
     },

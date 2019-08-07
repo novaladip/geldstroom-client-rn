@@ -13,9 +13,11 @@ export const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
+    opacity: 0.8,
   },
   text: {
-    fontSize: 32,
+    fontSize: 14,
+    fontWeight: 'bold',
     color: colors.textOnSecondary,
   },
 });

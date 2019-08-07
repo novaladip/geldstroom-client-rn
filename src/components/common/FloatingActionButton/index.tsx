@@ -16,7 +16,7 @@ export function FloatingActionButton(props: Props) {
   }
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Text style={styles.text}>+</Text>
+      <Text style={styles.text}>ADD</Text>
     </TouchableOpacity>
   );
 }
