@@ -4,22 +4,23 @@ import { colors } from '../../../../utils';
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingVertical: 15,
-    paddingHorizontal: 10,
+    marginVertical: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 25,
   },
   borderBottom: {
     borderBottomWidth: 1,
     borderColor: colors.secondaryDark,
   },
   icon: {
-    height: 26,
-    width: 26,
+    height: 40,
+    width: 40,
+    marginRight: 10,
   },
   name: {
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: '500',
     color: colors.textOnSecondary,
   },

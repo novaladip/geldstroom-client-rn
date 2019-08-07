@@ -4,6 +4,6 @@ import { colors } from '../../utils';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#d9d9d9',
   },
 });
