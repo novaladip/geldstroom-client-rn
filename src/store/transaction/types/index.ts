@@ -30,8 +30,16 @@ export interface AddTransactionState {
   isLoading: boolean;
 }
 
+export interface BalanceState {
+  income: number;
+  expense: number;
+  isLoading: boolean;
+  error: any;
+}
+
 export interface TransactionState {
   transaction: Transaction[];
+  balance: BalanceState;
   page: number;
   isLoading: boolean;
   error: any;
@@ -46,6 +54,9 @@ export enum TransactionActionTypes {
   ADD_TRANSACTION = '@@transaction/ADD_TRANSACTION',
   ADD_TRANSACTION_SUCCESS = '@@transaction/ADD_TRANSACTION_SUCCESS',
   ADD_TRANSACTION_ERROR = '@@transaction/ADD_TRANSACTION_ERROR',
+  REQ_GET_BALANCE = '@@transaction/REQ_GET_BALANCE',
+  REQ_GET_BALANCE_SUCCESS = '@@transaction/REQ_GET_BALANCE',
+  REQ_GET_BALANCE_FAILURE = '@@transaction/REQ_GET_BALANCE_FAILURE',
 }
 
 export interface GetTransactionsOption {
@@ -61,18 +72,34 @@ export interface GetTransactionSuccessPayload {
   transaction: Transaction[];
 }
 
+export interface ShowMessageOption {
+  message: string;
+  description: string;
+  type: 'success' | 'danger';
+}
+
 export interface AddTransactionPayload {
   type: string;
   category: string;
   amount: string;
   description: string;
-  showMessage: (option: {
-    message: string;
-    description: string;
-    type: 'success' | 'danger';
-  }) => void;
+  showMessage: (option: ShowMessageOption) => void;
 }
 
 export interface AddTransactionSuccessPayload {
   transaction: Transaction;
+}
+
+export interface ReqGetBalancePayload extends ReqGetBalanceOption {
+  showMessage: (option: ShowMessageOption) => void;
+}
+
+export interface ReqGetBalanceOption {
+  isMonthly: IsMonthly;
+  date: string;
+}
+
+export interface ReqGetBalanceSuccessPayload {
+  income: number;
+  expense: number;
 }

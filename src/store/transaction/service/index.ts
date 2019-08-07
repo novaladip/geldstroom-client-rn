@@ -2,11 +2,10 @@ import { AxiosResponse } from 'axios';
 import {
   Transaction,
   GetTransactionsOption,
-  TransactionCategory,
-  TransactionType,
+  ReqGetBalanceOption,
 } from '../types';
 import { formatDate } from '../helper';
-import { api, handleApiError } from '../../../utils';
+import { api, handleApiError, isEmpty } from '../../../utils';
 
 export async function getTransactions(options: GetTransactionsOption) {
   try {
@@ -47,6 +46,32 @@ export async function postTrasanaction({
     );
     const { data } = await res;
     return data;
+  } catch (error) {
+    handleApiError(error);
+  }
+}
+
+export async function getBalance(option: ReqGetBalanceOption) {
+  try {
+    const params = {
+      date: formatDate(option.date),
+      isMonthly: option.isMonthly,
+    };
+    const res: AxiosResponse<
+      [
+        {
+          INCOME: string | null;
+          EXPENSE: string | null;
+        }
+      ]
+    > = await api.get('/transaction/total/amount', { params });
+    const { data } = await res;
+    return {
+      INCOME: isEmpty(data[0].INCOME) ? 0 : parseInt(data[0].INCOME as string),
+      EXPENSE: isEmpty(data[0].EXPENSE)
+        ? 0
+        : parseInt(data[0].EXPENSE as string),
+    };
   } catch (error) {
     handleApiError(error);
   }

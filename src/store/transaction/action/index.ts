@@ -5,6 +5,8 @@ import {
   GetTransactionSuccessPayload,
   AddTransactionPayload,
   AddTransactionSuccessPayload,
+  ReqGetBalancePayload,
+  ReqGetBalanceSuccessPayload,
 } from '../types';
 
 export function requestGetTransactions(options: GetTransactionsOption) {
@@ -34,4 +36,16 @@ export function addTransactionSuccess(payload: AddTransactionSuccessPayload) {
 
 export function addTransactionFailure(payload: { error: any }) {
   return action(TransactionActionTypes.ADD_TRANSACTION_ERROR, payload);
+}
+
+export function reqGetBalance(payload: ReqGetBalancePayload) {
+  return action(TransactionActionTypes.REQ_GET_BALANCE, payload);
+}
+
+export function reqGetBalanceSuccess(payload: ReqGetBalanceSuccessPayload) {
+  return action(TransactionActionTypes.REQ_GET_BALANCE_SUCCESS, payload);
+}
+
+export function reqGetBalanceError(payload: any) {
+  return action(TransactionActionTypes.REQ_GET_BALANCE_FAILURE, payload);
 }

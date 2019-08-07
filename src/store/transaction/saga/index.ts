@@ -5,6 +5,7 @@ import {
   takeLeading,
   put,
   takeEvery,
+  takeLatest,
 } from 'redux-saga/effects';
 import {
   requestGetTransactionsFailure,
@@ -13,9 +14,12 @@ import {
   addTransaction,
   addTransactionSuccess,
   addTransactionFailure,
+  reqGetBalance,
+  reqGetBalanceError,
+  reqGetBalanceSuccess,
 } from '../action';
 import { TransactionActionTypes, Transaction } from '../types';
-import { getTransactions, postTrasanaction } from '../service';
+import { getTransactions, postTrasanaction, getBalance } from '../service';
 import { validateAddTransactionInput } from '../helper';
 
 export function* handleRequestGetTransactions(
@@ -74,6 +78,32 @@ export function* watchAddTransaction() {
   yield takeEvery(TransactionActionTypes.ADD_TRANSACTION, handleAddTransaction);
 }
 
+export function* handleReqGetBalance(action: ReturnType<typeof reqGetBalance>) {
+  try {
+    const { date, isMonthly } = action.payload;
+    const res = yield call(getBalance, {
+      date,
+      isMonthly,
+    });
+    yield put(reqGetBalanceSuccess(res));
+  } catch (error) {
+    action.payload.showMessage({
+      message: 'Failed to get balance',
+      description: error.message || 'Please try again',
+      type: 'danger',
+    });
+    yield put(reqGetBalanceError(error));
+  }
+}
+
+export function* watchReqGetBalance() {
+  yield takeLatest(TransactionActionTypes.REQ_GET_BALANCE, handleReqGetBalance);
+}
+
 export function* rootTransactionSaga() {
-  yield all([fork(watchRequestGetTransactions), fork(watchAddTransaction)]);
+  yield all([
+    fork(watchRequestGetTransactions),
+    fork(watchAddTransaction),
+    fork(watchReqGetBalance),
+  ]);
 }

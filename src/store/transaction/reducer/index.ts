@@ -3,6 +3,12 @@ import { isEmpty } from '../../../utils';
 
 const initialState: TransactionState = {
   transaction: [],
+  balance: {
+    income: 0,
+    expense: 0,
+    isLoading: false,
+    error: {},
+  },
   page: 1,
   isEmpty: false,
   isLoading: false,
@@ -71,6 +77,39 @@ export function transactionReducer(
           isLoading: false,
         },
       };
+
+    case TransactionActionTypes.REQ_GET_BALANCE:
+      return {
+        ...state,
+        balance: {
+          ...state.balance,
+          isLoading: true,
+          error: {},
+        },
+      };
+
+    case TransactionActionTypes.REQ_GET_BALANCE_SUCCESS:
+      return {
+        ...state,
+        balance: {
+          ...state.balance,
+          isLoading: false,
+          error: {},
+          income: action.payload.income,
+          expense: action.payload.expense,
+        },
+      };
+
+    case TransactionActionTypes.REQ_GET_BALANCE_FAILURE:
+      return {
+        ...state,
+        balance: {
+          ...state.balance,
+          isLoading: false,
+          error: action.payload,
+        },
+      };
+
     default:
       return state;
   }
