@@ -68,7 +68,6 @@ export async function getBalance(option: ReqGetBalanceOption) {
       ]
     > = await api.get('/transaction/total/amount', { params });
     const { data } = await res;
-    console.log(data);
     return {
       INCOME: isEmpty(data[0].INCOME) ? 0 : parseInt(data[0].INCOME as string),
       EXPENSE: isEmpty(data[1].EXPENSE)

@@ -1,4 +1,8 @@
-import { TransactionState, TransactionActionTypes } from '../types';
+import {
+  TransactionState,
+  TransactionActionTypes,
+  TransactionType,
+} from '../types';
 import { isEmpty } from '../../../utils';
 
 const initialState: TransactionState = {
@@ -60,9 +64,22 @@ export function transactionReducer(
       };
 
     case TransactionActionTypes.ADD_TRANSACTION_SUCCESS:
+      const income =
+        action.payload.type === TransactionType.INCOME
+          ? state.balance.income + action.payload.amount
+          : state.balance.income;
+      const expense =
+        action.payload.type === TransactionType.EXPENSE
+          ? state.balance.expense + action.payload.amount
+          : state.balance.expense;
       return {
         ...state,
         transaction: [action.payload, ...state.transaction],
+        balance: {
+          ...state.balance,
+          income,
+          expense,
+        },
         addTransaction: {
           error: {},
           isLoading: false,
