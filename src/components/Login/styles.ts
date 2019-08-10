@@ -4,7 +4,7 @@ import { colors } from '../../utils';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primary,
+    backgroundColor: '#fff',
     paddingVertical: 15,
   },
   inputContainer: {
@@ -32,10 +32,10 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     alignSelf: 'center',
-    backgroundColor: colors.primaryLight,
+    backgroundColor: colors.secondaryDark,
   },
   text: {
-    color: colors.textOnPrimary,
+    color: colors.textOnSecondary,
   },
   textBold: {
     fontWeight: 'bold',

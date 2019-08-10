@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
   },
   secondaryContainer: {
     ...base.container,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.secondaryDark,
   },
   textPrimary: {
     ...base.text,
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
   },
   textSecondary: {
     ...base.text,
-    color: colors.textOnSecondary,
+    color: colors.textOnPrimary,
   },
   textLoadingPrimary: {
     ...base.text,

@@ -23,7 +23,7 @@ export function Filter(props: Props) {
   const dispatch = useDispatch();
   const [isShowFull, setIsShowFull] = useState(false);
   const [date, setDate] = useState(moment.utc().format('YYYY/MM/DD'));
-  const [isMonthly, setIsMonthly] = useState('Daily');
+  const [isMonthly, setIsMonthly] = useState('Monthly');
   const [type, setType] = useState('ALL');
   const [category, setCategory] = useState('ALL');
   const optionRef = useRef<any>();

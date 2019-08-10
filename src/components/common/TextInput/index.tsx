@@ -41,7 +41,7 @@ export class TextInput extends PureComponent<TextInputProps> {
           <View style={styles.iconContainer}>
             <Image
               source={icon}
-              style={styles.icon}
+              style={error ? styles.iconError : styles.icon}
               resizeMethod="auto"
               resizeMode="center"
             />
@@ -51,7 +51,6 @@ export class TextInput extends PureComponent<TextInputProps> {
         <Input
           placeholder={placeholder}
           style={error ? styles.inputError : styles.input}
-          placeholderTextColor={colors.primaryLight}
           ref={e => (this.inputRefs = e)}
           {...this.props}
         />
