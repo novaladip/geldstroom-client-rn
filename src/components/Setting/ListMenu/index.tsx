@@ -19,6 +19,10 @@ export function ListMenu(props: Props) {
     AuthRoot();
   }
 
+  function handleRate() {
+    // @TODO
+  }
+
   return (
     <View style={styles.container}>
       <Item
@@ -29,11 +33,11 @@ export function ListMenu(props: Props) {
       <Item
         icon={require('./assets/rating.png')}
         name="Give us rate"
-        onPress={() => {}}
+        onPress={handleRate}
       />
       <Item
         icon={require('./assets/version.png')}
-        name={`Version ${pkg.version}`}
+        name={`Version 0.0.1`}
         onPress={() => {}}
       />
     </View>

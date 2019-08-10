@@ -31,6 +31,8 @@ target 'Geldstroom' do
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
   target 'GeldstroomTests' do
     inherit! :search_paths
     # Pods for testing

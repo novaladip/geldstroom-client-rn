@@ -34,7 +34,8 @@ export function AuthRoot() {
       },
     },
     statusBar: {
-      backgroundColor: colors.primaryDark,
+      backgroundColor: colors.secondary,
+      style: 'light',
     },
   });
 
@@ -69,7 +70,8 @@ export function AppRoot() {
       },
     },
     statusBar: {
-      backgroundColor: colors.primary,
+      backgroundColor: colors.secondary,
+      style: 'light',
     },
   });
 

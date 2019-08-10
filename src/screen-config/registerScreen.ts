@@ -21,12 +21,12 @@ const screens: { name: string; component: any }[] = [
 ];
 
 export function registerScreen() {
-  screens.map(screen =>
+  screens.map(({ name, component }) => {
     Navigation.registerComponentWithRedux(
-      screen.name,
-      () => screen.component,
+      name,
+      () => component,
       Provider,
       store,
-    ),
-  );
+    );
+  });
 }

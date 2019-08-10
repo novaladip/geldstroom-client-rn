@@ -1,6 +1,7 @@
 export * from './Balance';
 export * from './Button';
 export * from './Calendar';
+export * from './DatePicker';
 export * from './FloatingActionButton';
 export * from './OptionsInput';
 export * from './Record';

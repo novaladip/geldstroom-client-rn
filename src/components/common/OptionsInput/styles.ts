@@ -3,11 +3,9 @@ import { colors } from '../../../utils';
 
 export const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: '95%',
     alignSelf: 'center',
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderColor: colors.primaryLight,
+    paddingVertical: 5,
   },
   optionsContainer: {
     marginTop: 5,
@@ -18,14 +16,15 @@ export const styles = StyleSheet.create({
   baseOption: {
     borderRadius: 5,
     margin: 5,
+    minWidth: 100,
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: colors.secondary,
+    borderColor: colors.textOnPrimary,
   },
   optionSelected: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.secondaryLight,
   },
   textWhite: {
     color: colors.textOnPrimary,
