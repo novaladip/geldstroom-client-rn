@@ -22,7 +22,7 @@ export function AuthRoot() {
     blurOnUnmount: true,
     topBar: {
       background: {
-        color: colors.primaryLight,
+        color: colors.secondaryDark,
         translucent: true,
       },
       title: {

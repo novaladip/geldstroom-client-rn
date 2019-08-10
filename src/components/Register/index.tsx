@@ -1,11 +1,6 @@
 import React, { useState, useRef } from 'react';
-import {
-  View,
-  SafeAreaView,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { View, SafeAreaView, Text, TouchableOpacity } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import { Options, Navigation } from 'react-native-navigation';
 
@@ -61,67 +56,63 @@ function Register(props: AllProps) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground
-        style={styles.imageBackground}
-        imageStyle={styles.image}
-        resizeMethod="auto"
-        resizeMode="cover"
-        source={require('./assets/background.jpg')}
-      >
-        <TextInput
-          value={emailInput}
-          label="Email"
-          placeholder="Enter Email"
-          onChangeText={setEmailInput}
-          useIcon
-          iconName="email"
-          error={registerError.email || registerError.message}
-          onSubmitEditing={() => passwordInputRef.current.focus()}
-          blurOnSubmit={false}
-        />
+      <KeyboardAwareScrollView>
+        <View style={styles.inputContainer}>
+          <TextInput
+            value={emailInput}
+            label="Email"
+            placeholder="Enter Email"
+            onChangeText={setEmailInput}
+            useIcon
+            iconName="email"
+            error={registerError.email || registerError.message}
+            onSubmitEditing={() => passwordInputRef.current.focus()}
+            blurOnSubmit={false}
+          />
 
-        <TextInput
-          value={passwordInput}
-          label="Password"
-          placeholder="Enter Password"
-          onChangeText={setPasswordInput}
-          secureTextEntry
-          useIcon
-          iconName="password"
-          error={registerError.password}
-          ref={passwordInputRef}
-          onSubmitEditing={() => passwordComfirmationInputRef.current.focus()}
-          blurOnSubmit={false}
-        />
+          <TextInput
+            value={passwordInput}
+            label="Password"
+            placeholder="Enter Password"
+            onChangeText={setPasswordInput}
+            secureTextEntry
+            useIcon
+            iconName="password"
+            error={registerError.password}
+            ref={passwordInputRef}
+            onSubmitEditing={() => passwordComfirmationInputRef.current.focus()}
+            blurOnSubmit={false}
+          />
 
-        <TextInput
-          value={passwordComfirmationInput}
-          label="Password Comfirmation"
-          placeholder="Enter Password Comfirmation"
-          onChangeText={setPasswordComfirmationInput}
-          secureTextEntry
-          useIcon
-          iconName="password"
-          error={registerError.passwordComfirmation}
-          ref={passwordComfirmationInputRef}
-          onSubmitEditing={onPressRegister}
-        />
+          <TextInput
+            value={passwordComfirmationInput}
+            label="Password Comfirmation"
+            placeholder="Enter Password Comfirmation"
+            onChangeText={setPasswordComfirmationInput}
+            secureTextEntry
+            useIcon
+            iconName="password"
+            error={registerError.passwordComfirmation}
+            ref={passwordComfirmationInputRef}
+            onSubmitEditing={onPressRegister}
+          />
 
-        <View style={styles.loginContainer}>
-          <Text style={styles.text}>Already have an account? </Text>
-          <TouchableOpacity onPress={popScreen}>
-            <Text style={[styles.text, styles.textBold]}>Login Here</Text>
-          </TouchableOpacity>
+          <View style={styles.loginContainer}>
+            <Text style={styles.text}>Already have an account? </Text>
+            <TouchableOpacity onPress={popScreen}>
+              <Text style={[styles.text, styles.textBold]}>Login Here</Text>
+            </TouchableOpacity>
+          </View>
+          <Button
+            color="secondary"
+            text="Register"
+            loadingText="Registering..."
+            onPress={onPressRegister}
+            containerStyle={{ marginTop: 35 }}
+            isLoading={isRequestRegisterLoading}
+          />
         </View>
-
-        <Button
-          text="Register"
-          loadingText="Registering..."
-          onPress={onPressRegister}
-          containerStyle={{ marginTop: 35 }}
-          isLoading={isRequestRegisterLoading}
-        />
-      </ImageBackground>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }

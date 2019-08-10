@@ -4,14 +4,10 @@ import { colors } from '../../utils';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primary,
+    backgroundColor: '#fff',
   },
-  image: {
-    opacity: 0.3,
-  },
-  imageBackground: {
-    width: '100%',
-    height: '100%',
+  inputContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -24,7 +20,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   text: {
-    color: colors.textOnPrimary,
+    color: colors.textOnSecondary,
   },
   textBold: {
     fontWeight: 'bold',
