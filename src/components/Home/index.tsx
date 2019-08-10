@@ -1,17 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import { SafeAreaView } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
-import { Options } from 'react-native-navigation';
-import { connect } from 'react-redux';
+import { Options, Navigation } from 'react-native-navigation';
+import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import { OverviewRecords } from './OverviewRecords';
-import { ApplicationState, ConnectedReduxProps } from '../../store/store';
+import { ApplicationState } from '../../store/store';
 import {
   requestGetTransactions,
   reqGetBalance,
 } from '../../store/transaction/action';
-import { TransactionState, BalanceState } from '../../store/transaction/types';
 import { styles } from './styles';
 import { Balance, FloatingActionButton } from '../common';
 
@@ -19,39 +18,47 @@ export interface Props {
   componentId: string;
 }
 
-export interface StateFromProps {
-  transaction: TransactionState;
-  balance: BalanceState;
-}
-
-export interface StateFromDispatch {
-  requestGetTransactions: typeof requestGetTransactions;
-  reqGetBalance: typeof reqGetBalance;
-}
-
-export type AllProps = Props &
-  StateFromProps &
-  StateFromDispatch &
-  ConnectedReduxProps;
-
-function Home(props: AllProps) {
+export function Home(props: Props) {
+  const dispatch = useDispatch();
   const flashMessageRef = useRef<any>();
-  const {
-    componentId,
-    requestGetTransactions,
-    transaction,
-    reqGetBalance,
-    balance,
-  } = props;
+  const { componentId } = props;
   const today = moment.utc().format('YYYY-MM-DD');
 
+  const transaction = useSelector(
+    (state: ApplicationState) => state.transaction,
+  );
+  const balance = useSelector(
+    (state: ApplicationState) => state.transaction.balance,
+  );
+
+  function getTransaction() {
+    dispatch(requestGetTransactions({ date: today, page: 1, limit: 0 }));
+  }
+
+  function getBalance() {
+    dispatch(
+      reqGetBalance({
+        date: today,
+        isMonthly: 0,
+        showMessage: flashMessageRef.current.showMessage,
+      }),
+    );
+  }
+
   useEffect(() => {
-    requestGetTransactions({ date: today, page: 1, limit: 9 });
-    reqGetBalance({
-      date: today,
-      isMonthly: 0,
-      showMessage: flashMessageRef.current.showMessage,
-    });
+    const componentAppearListener = Navigation.events().registerComponentDidAppearListener(
+      ({ componentId: compId }) => {
+        if (compId === componentId) {
+          getTransaction();
+        }
+      },
+    );
+
+    getBalance();
+
+    return () => {
+      componentAppearListener.remove();
+    };
   }, []);
 
   return (
@@ -73,18 +80,3 @@ Home.options = {
     drawBehind: true,
   },
 } as Options;
-
-const mapStateToProps = (state: ApplicationState) => ({
-  transaction: state.transaction,
-  balance: state.transaction.balance,
-});
-
-const mapDispatchToProps = {
-  requestGetTransactions,
-  reqGetBalance,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Home);
