@@ -116,6 +116,7 @@ AddRecords.options = {
       text: 'Add Records',
     },
   },
+  bottomTabs: { visible: false, drawBehind: true },
 } as Options;
 
 const mapStateToProps = (state: ApplicationState) => ({
