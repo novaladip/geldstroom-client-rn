@@ -11,7 +11,7 @@ export function validateAddTransactionInput(data: ValidateAddTransactionInput) {
   let error = {} as ValidateAddTransactionInput;
   const amount = !isEmpty(data.amount) ? data.amount : '';
 
-  if (!Validator.isNumeric(amount)) {
+  if (!Validator.isInt(amount, { min: 1 })) {
     error.amount = 'Invalid amount';
   }
 

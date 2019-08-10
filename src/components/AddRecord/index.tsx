@@ -57,49 +57,55 @@ function AddRecords(props: AllProps) {
 
   return (
     <View style={styles.container}>
-      <KeyboardAwareScrollView>
-        <OptionsInput
-          label="Type"
-          value={type}
-          onSelect={setType}
-          options={[TransactionType.INCOME, TransactionType.EXPENSE]}
-        />
-        <OptionsInput
-          label="Category"
-          value={category}
-          onSelect={setCategory}
-          options={Object.keys(TransactionCategory).map(category => category)}
-        />
-        <TextInput
-          label="Amount"
-          placeholder="e.g 20000"
-          value={amount}
-          keyboardType="numeric"
-          onChangeText={setAmount}
-          error={error.amount}
-          onSubmitEditing={() => descriptionRef.current.focus()}
-          blurOnSubmit={false}
-        />
-        <TextInput
-          label="Description"
-          placeholder="Enter description"
-          value={description}
-          onChangeText={setDescription}
-          error={error.description}
-          ref={descriptionRef}
-          onSubmitEditing={() => {
-            if (!isEmpty(amount)) onPress();
-          }}
-        />
-        <Button
-          onPress={onPress}
-          text="Add Transaction"
-          containerStyle={{ marginTop: 30 }}
-          isLoading={isLoading}
-          loadingText="Adding Transaction..."
-        />
-      </KeyboardAwareScrollView>
-      <FlashMessage position="bottom" ref={flashMessageRef} />
+      <View style={styles.inputContainer}>
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+          <OptionsInput
+            label="Type"
+            value={type}
+            onSelect={setType}
+            options={[TransactionType.INCOME, TransactionType.EXPENSE]}
+          />
+          <OptionsInput
+            label="Category"
+            value={category}
+            onSelect={setCategory}
+            options={Object.keys(TransactionCategory).map(category => category)}
+          />
+          <TextInput
+            label="Amount"
+            placeholder="e.g 20000"
+            value={amount}
+            keyboardType="numeric"
+            onChangeText={setAmount}
+            error={error.amount}
+            onSubmitEditing={() => descriptionRef.current.focus()}
+            blurOnSubmit={false}
+            theme="dark"
+          />
+          <TextInput
+            label="Description"
+            placeholder="Enter description"
+            value={description}
+            onChangeText={setDescription}
+            error={error.description}
+            ref={descriptionRef}
+            onSubmitEditing={() => {
+              if (!isEmpty(amount)) onPress();
+            }}
+            theme="dark"
+          />
+          <Button
+            color="primary"
+            onPress={onPress}
+            text="Add Transaction"
+            containerStyle={{ marginVertical: 30 }}
+            isLoading={isLoading}
+            loadingText="Adding Transaction..."
+          />
+        </KeyboardAwareScrollView>
+
+        <FlashMessage position="bottom" ref={flashMessageRef} />
+      </View>
     </View>
   );
 }

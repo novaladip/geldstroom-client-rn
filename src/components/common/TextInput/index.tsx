@@ -21,6 +21,7 @@ export interface TextInputProps extends InputProps {
   refs?: any;
   useIcon?: boolean;
   iconName?: 'email' | 'password';
+  theme?: 'light' | 'dark';
 }
 
 export class TextInput extends PureComponent<TextInputProps> {
@@ -32,10 +33,13 @@ export class TextInput extends PureComponent<TextInputProps> {
 
   render() {
     const { label, placeholder, error, useIcon, iconName } = this.props;
+    const theme = this.props.theme ? this.props.theme : 'light';
+    const inputStyle = theme === 'light' ? styles.input : styles.inputDark;
+    const labelStyle = theme === 'light' ? styles.label : styles.labelDark;
     const icon = iconName && iconSource[iconName];
     return (
       <View style={styles.container}>
-        <Text style={error ? styles.labelError : styles.label}>{label}</Text>
+        <Text style={error ? styles.labelError : labelStyle}>{label}</Text>
 
         {useIcon && (
           <View style={styles.iconContainer}>
@@ -50,7 +54,7 @@ export class TextInput extends PureComponent<TextInputProps> {
 
         <Input
           placeholder={placeholder}
-          style={error ? styles.inputError : styles.input}
+          style={error ? styles.inputError : inputStyle}
           ref={e => (this.inputRefs = e)}
           {...this.props}
         />

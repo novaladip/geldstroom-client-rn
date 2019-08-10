@@ -4,7 +4,7 @@ import { colors } from '../../../utils';
 const base = StyleSheet.create({
   container: {
     paddingVertical: 15,
-    width: '90%',
+    width: '95%',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

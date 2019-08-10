@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     alignSelf: 'center',
     paddingTop: 15,
-    width: '90%',
+    width: '95%',
   },
   iconContainer: {
     position: 'absolute',
@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
   icon: {
     width: 28,
     height: 18,
-    tintColor: colors.secondary,
+    tintColor: colors.textOnSecondary,
   },
   iconError: {
     width: 28,
@@ -28,7 +28,15 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     marginBottom: 3,
-    borderColor: colors.secondary,
+    borderColor: colors.textOnSecondary,
+  },
+  inputDark: {
+    color: colors.textOnPrimary,
+    borderRadius: 5,
+    padding: 10,
+    borderWidth: 1,
+    marginBottom: 3,
+    borderColor: colors.textOnPrimary,
   },
   inputError: {
     color: 'red',
@@ -39,8 +47,10 @@ export const styles = StyleSheet.create({
     borderColor: 'red',
   },
   label: {
-    marginLeft: 5,
     color: colors.textOnSecondary,
+  },
+  labelDark: {
+    color: colors.textOnPrimary,
   },
   labelError: {
     marginLeft: 5,

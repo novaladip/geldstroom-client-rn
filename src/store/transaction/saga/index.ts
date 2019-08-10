@@ -67,7 +67,7 @@ export function* handleAddTransaction(
   } catch (error) {
     action.payload.showMessage({
       message: 'Failed to add a record',
-      description: error.message || 'Please check again your input',
+      description: 'Please check again your input',
       type: 'danger',
     });
     yield put(addTransactionFailure(error));
